@@ -1,0 +1,46 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox
+def create_form():
+    form = QWidget()
+    form.setWindowTitle('Menu Makanan dan Minuman')
+
+    label_info = QLabel('Selamat Datang di restoran kami!\n Silahkan pilih menu yang Anda inginkan!')
+    label_menu_makanan = QLabel('Menu makanan:\n 1. Nasi Goreng Rendang\n 2. Nasi Goreng Spesial\n 3. Nasi Goreng Seafood\n 4. Sop Kepiting\n 5. Sop Asparagus')
+    label_menu_minuman = QLabel('Menu minuman:\n 1. Es Teh Manis\n 2. Es Teh Tawar\n 3. Teh Tarik\n 4. Es Kopi\n 5. Air MIneral')
+
+    label_makanan = QLabel('Makanan:')
+    input_makanan = QLineEdit()
+
+    label_minuman = QLabel('Minuman:')
+    input_minuman = QLineEdit()
+
+    submit_bin = QPushButton('Simpan')
+
+    def simpan_menu():
+        makanan = input_makanan.text()
+        minuman = input_minuman.text()
+
+        if not makanan or not minuman:
+            QMessageBox.warning(form, 'Peringatan', 'Semua Kolom Harus Diisi!')
+            return
+        
+        QMessageBox.information(form, 'Sukses', f'Menu tersimpan!)\nMakanan: {makanan}\nMinuman: {minuman}')
+
+    submit_bin.clicked.connect(simpan_menu)
+    layout = QVBoxLayout()
+    layout.addWidget(label_info)
+    layout.addWidget(label_menu_makanan)
+    layout.addWidget(label_menu_minuman)
+    layout.addWidget(label_makanan)
+    layout.addWidget(input_makanan)
+    layout.addWidget(label_minuman)
+    layout.addWidget(input_minuman)
+    layout.addWidget(submit_bin)
+    form.setLayout(layout)
+    form.show()
+    return form
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = create_form()
+    sys.exit(app.exec_())
